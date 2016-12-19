@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HBselect</class>
+ <widget class="QWidget" name="HBselect">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1339</width>
+    <height>849</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="AcceptSelection">
+   <property name="geometry">
+    <rect>
+     <x>1160</x>
+     <y>200</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Accept Selection</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ClearSelection">
+   <property name="geometry">
+    <rect>
+     <x>1020</x>
+     <y>120</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Clear All</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="AcceptSelection_2">
+   <property name="geometry">
+    <rect>
+     <x>1020</x>
+     <y>200</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel Selection</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="SelectAll">
+   <property name="geometry">
+    <rect>
+     <x>1160</x>
+     <y>120</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
