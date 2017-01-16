@@ -54,7 +54,7 @@ bool isuxibo;
 std::vector<bool> MatrixAconfig, MatrixBconfig, Matrix_config, MatrixNconfig;
 int SensorADAC[17], SensorBDAC[17], Sensor_DAC[17], SensorNDAC[17];
 int PixelASel[3], PixelBSel[3], PixelNSel[3], Pixel_Sel[3]; //Col, Row, RowToOut
-bool ModeASel[6], ModeBSel[6], ModeNSel[6], Mode_Sel[6]; // Checkboxes
+bool ModeASel[5], ModeBSel[5], ModeNSel[5], Mode_Sel[5]; // Checkboxes
 bool Unlock[17]= {0, //unlock                   //Some bits are negative!
                   1, //unlock
                   0,0,0,0,0,0,0, //????
@@ -123,10 +123,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     PCBConfig.resize(160);
 
-    //GetASICConfig(0);   //takes DAC values from Gui to vectors. To be replaced when save and load is introduced
-    GetASICConfig(1);
-    GetASICConfig(2);
-    GetASICConfig(3);
+    //Load Standard settings from files
+    for (int i = 0; i<4; i++)
+        LoadConigFile(i);
+
 
     ui->progressBar->hide();
 
@@ -402,9 +402,10 @@ void MainWindow::on_Update_clicked()
 
 void MainWindow::GetASICConfig(int Matrix)
 {
+    LoadASICConfig(Matrix);
     if (Matrix == 1)
     {
-        PixelASel[0] = ui->H35Col->value();
+        /*PixelASel[0] = ui->H35Col->value();
         PixelASel[1] = ui->H35Row->value();
         PixelASel[2] = ui->RowToAOut->value();
         ModeASel[0] = ui->checkbox_AOutToMon->isChecked();
@@ -412,7 +413,7 @@ void MainWindow::GetASICConfig(int Matrix)
         ModeASel[2] = ui->checkbox_InjToPixel->isChecked();
         ModeASel[3] = ui->checkbox_TestToMon->isChecked();
         ModeASel[4] = ui->checkbox_InjToTest->isChecked();
-        ModeASel[5] = ui->checkBox->isChecked();
+        ModeASel[5] = ui->checkBox->isChecked();*/
         //columns
         for (int icol=0; icol<300; icol++)
         {
@@ -470,7 +471,7 @@ void MainWindow::GetASICConfig(int Matrix)
         SensorADAC[15] = ui->spinBox_PAmp->value();
         SensorADAC[16] = ui->spinBox_PAB->value();*/
 
-        SensorADAC[16] = ui->spinBox_HBDig->value();
+        /*SensorADAC[16] = ui->spinBox_HBDig->value();
         SensorADAC[15] = ui->spinBox_PDelDig->value();
         SensorADAC[14] = ui->spinBox_NDelDig->value();
         SensorADAC[13] = ui->spinBox_PTrimDig->value();
@@ -486,7 +487,7 @@ void MainWindow::GetASICConfig(int Matrix)
         SensorADAC[3] = ui->spinBox_PAmpLoad->value();
         SensorADAC[2] = ui->spinBox_NSF->value();
         SensorADAC[1] = ui->spinBox_PAmp->value();
-        SensorADAC[0] = ui->spinBox_PAB->value();
+        SensorADAC[0] = ui->spinBox_PAB->value();*/
 
         for (int iDAC = 0; iDAC < 17; iDAC++)
         {
@@ -504,7 +505,7 @@ void MainWindow::GetASICConfig(int Matrix)
 
     if (Matrix == 2)
     {
-        PixelBSel[0] = ui->H35Col->value();
+        /*PixelBSel[0] = ui->H35Col->value();
         PixelBSel[1] = ui->H35Row->value();
         PixelBSel[2] = ui->RowToAOut->value();
         ModeBSel[0] = ui->checkbox_AOutToMon->isChecked();
@@ -512,7 +513,7 @@ void MainWindow::GetASICConfig(int Matrix)
         ModeBSel[2] = ui->checkbox_InjToPixel->isChecked();
         ModeBSel[3] = ui->checkbox_TestToMon->isChecked();
         ModeBSel[4] = ui->checkbox_InjToTest->isChecked();
-        ModeBSel[5] = ui->checkBox->isChecked();
+        ModeBSel[5] = ui->checkBox->isChecked();*/
         //columns
         for (int icol=0; icol<300; icol++)
         {
@@ -552,7 +553,7 @@ void MainWindow::GetASICConfig(int Matrix)
         }
 
         //Sensor DACs
-        SensorBDAC[16] = ui->spinBox_HBDig->value();
+        /*SensorBDAC[16] = ui->spinBox_HBDig->value();
         SensorBDAC[15] = ui->spinBox_PDelDig->value();
         SensorBDAC[14] = ui->spinBox_NDelDig->value();
         SensorBDAC[13] = ui->spinBox_PTrimDig->value();
@@ -568,7 +569,7 @@ void MainWindow::GetASICConfig(int Matrix)
         SensorBDAC[3] = ui->spinBox_PAmpLoad->value();
         SensorBDAC[2] = ui->spinBox_NSF->value();
         SensorBDAC[1] = ui->spinBox_PAmp->value();
-        SensorBDAC[0] = ui->spinBox_PAB->value();
+        SensorBDAC[0] = ui->spinBox_PAB->value();*/
 
         for (int iDAC = 0; iDAC < 17; iDAC++)
         {
@@ -586,7 +587,7 @@ void MainWindow::GetASICConfig(int Matrix)
     //NMOS Standalone Matrix
     if (Matrix == 0)
     {
-        PixelNSel[0] = ui->H35Col->value();
+        /*PixelNSel[0] = ui->H35Col->value();
         PixelNSel[1] = ui->H35Row->value();
         PixelNSel[2] = ui->RowToAOut->value();
         ModeNSel[0] = ui->checkbox_AOutToMon->isChecked();
@@ -594,7 +595,7 @@ void MainWindow::GetASICConfig(int Matrix)
         ModeNSel[2] = ui->checkbox_InjToPixel->isChecked();
         ModeNSel[3] = ui->checkbox_TestToMon->isChecked();
         ModeNSel[4] = ui->checkbox_InjToTest->isChecked();
-        ModeNSel[5] = ui->checkBox->isChecked();
+        ModeNSel[5] = ui->checkBox->isChecked();*/
 
         for (int irow = 0; irow<16; irow++)
         {
@@ -621,83 +622,25 @@ void MainWindow::GetASICConfig(int Matrix)
     }
     if (Matrix == 3)
     {
-        Pixel_Sel[0] = ui->H35Col->value();
-        Pixel_Sel[1] = ui->H35Row->value();
-        Pixel_Sel[2] = ui->RowToAOut->value();
-        Mode_Sel[0] = ui->checkbox_AOutToMon->isChecked();
-        Mode_Sel[1] = ui->checkbox_PixelToTest->isChecked();
-        Mode_Sel[2] = ui->checkbox_InjToPixel->isChecked();
-        Mode_Sel[3] = ui->checkbox_TestToMon->isChecked();
-        Mode_Sel[4] = ui->checkbox_InjToTest->isChecked();
-        Mode_Sel[5] = ui->checkBox->isChecked();
-        //columns
-        for (int icol=0; icol<300; icol++)
+        for (int irow = 0; irow<16; irow++)
         {
-            if( (299-icol) == ui->H35Col->value())
-            {
-                Matrix_config[icol*4] = (((299-icol) == 0)&&(ui->checkbox_AOutToMon->isChecked() == true));//MuxEn
-                Matrix_config[icol*4+1] = (ui->checkbox_InjToPixel->isChecked());//InjToCol
-                Matrix_config[icol*4+2] = (ui->checkbox_TestToMon->isChecked());//TestToMon
-                Matrix_config[icol*4+3] = (ui->checkbox_InjToTest->isChecked());//InjToTest
-            }
-            else
-            {
-                Matrix_config[icol*4] = (((299-icol) == 0)&&(ui->checkbox_AOutToMon->isChecked() == true));
-                Matrix_config[icol*4+1] = (false);
-                Matrix_config[icol*4+2] = (false);
-                Matrix_config[icol*4+3] = (false);
-            }
+            SendConfigCMOS(1,0,irow,0,1,0);
+            nexys->WriteASIC(0x00, Matrix_config, 3);
+            nexys->flush();
+            SendConfigCMOS(1,0,irow,0,0,0);
+            nexys->WriteASIC(0x00, Matrix_config, 3);
+            nexys->flush();
         }
-
-        //rows
-        for (int irow=0; irow<16; irow++) {
-
-            if( (15-irow) == ui->H35Row->value())
-            {
-                Matrix_config[irow*4+1200] = (ui->checkbox_RAM->isChecked());//RAM
-                Matrix_config[irow*4+1201] = ((15-irow) == ui->RowToAOut->value());//SF
-                Matrix_config[irow*4+1202] = (ui->checkbox_PixelToTest->isChecked());//Test IVAN
-                Matrix_config[irow*4+1203] = (ui->checkbox_InjToPixel->isChecked());//Inj
-            }
-            else
-            {
-                Matrix_config[irow*4+1200] = (false);
-                Matrix_config[irow*4+1201] = ((15-irow) == ui->RowToAOut->value());
-                Matrix_config[irow*4+1202] = (false);
-                Matrix_config[irow*4+1203] = (false);
-            }
-        }
-
-        //Sensor DACs
-        Sensor_DAC[16] = ui->spinBox_HBDig->value();
-        Sensor_DAC[15] = ui->spinBox_PDelDig->value();
-        Sensor_DAC[14] = ui->spinBox_NDelDig->value();
-        Sensor_DAC[13] = ui->spinBox_PTrimDig->value();
-        Sensor_DAC[12] = ui->spinBox_NCompDig->value();
-        Sensor_DAC[11] = ui->spinBox_BLResDig->value();
-        Sensor_DAC[10] = ui->spinBox_BLRes->value();
-        Sensor_DAC[9] = ui->spinBox_NBiasRes->value();
-        Sensor_DAC[8] = ui->spinBox_NFB->value();
-        Sensor_DAC[7] = ui->spinBox_PTrim->value();
-        Sensor_DAC[6] = ui->spinBox_NTWDown->value();
-        Sensor_DAC[5] = ui->spinBox_NTW->value();
-        Sensor_DAC[4] = ui->spinBox_NLogic->value();
-        Sensor_DAC[3] = ui->spinBox_PAmpLoad->value();
-        Sensor_DAC[2] = ui->spinBox_NSF->value();
-        Sensor_DAC[1] = ui->spinBox_PAmp->value();
-        Sensor_DAC[0] = ui->spinBox_PAB->value();
-
-        for (int iDAC = 0; iDAC < 17; iDAC++)
+        for (int dig=0; dig<40;dig++)
         {
-            if (ui->IsUnlocked->isChecked())
-                Matrix_config[1292+iDAC*7] = Unlock[iDAC];
-            else
-                Matrix_config[1292+iDAC*7] = Lock[iDAC];
-            for (int ibit=0; ibit<6; ibit++)
-            {
-                Matrix_config[1292+iDAC*7+1+ibit] = (Sensor_DAC[iDAC] & (0x01<<(ibit))) != 0x00;
-            }
+            SendConfigCMOS(0, 1, 0, dig, 0, 1);
+            nexys->WriteASIC(0x00, Matrix_config, 3);
+            nexys->flush();
+            SendConfigCMOS(0, 1, 0, dig, 0, 0);
+            nexys->WriteASIC(0x00, Matrix_config, 3);
+            nexys->flush();
         }
+        SendConfigCMOS(0, 0, 0, 0, 0, 0);
     }
 }
 
@@ -798,7 +741,7 @@ void MainWindow::SendConfig(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, in
     }
 
     //Sensor DACs
-    SensorNDAC[16] = ui->spinBox_HBDig->value();
+    /*SensorNDAC[16] = ui->spinBox_HBDig->value();
     SensorNDAC[15] = ui->spinBox_PDelDig->value();
     SensorNDAC[14] = ui->spinBox_NDelDig->value();
     SensorNDAC[13] = ui->spinBox_PTrimDig->value();
@@ -814,7 +757,7 @@ void MainWindow::SendConfig(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, in
     SensorNDAC[3] = ui->spinBox_PAmpLoad->value();
     SensorNDAC[2] = ui->spinBox_NSF->value();
     SensorNDAC[1] = ui->spinBox_PAmp->value();
-    SensorNDAC[0] = ui->spinBox_PAB->value();
+    SensorNDAC[0] = ui->spinBox_PAB->value();*/
 
     for (int iDAC = 0; iDAC < 17; iDAC++)
     {
@@ -837,6 +780,130 @@ void MainWindow::SendConfig(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, in
     /*for (int i = 0; i < 150; i++)
     {
         std::cout << MatrixNconfig[i] ;
+        if (i%10 == 9)
+                     std::cout << std::endl;
+    }*/
+}
+
+
+//generates configuration for the Standalone Matrix _ (CMOS Matrix)
+void MainWindow::SendConfigCMOS(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, int LdDigIndex, bool LdPixEn, bool LdDigEn)
+{
+    //Digital horizontal control register
+    for (int dig = 0; dig <40; dig++)
+    {
+        Matrix_config[dig*2] = HBenRow[dig];                      //HB En
+        Matrix_config[dig*2+1] = ((dig==LdDigIndex) && LdDigEn);  //RAM Ld
+    }
+
+    //columns
+    for (int icol=0; icol<300; icol++)
+    {
+
+        //ModeRamPix
+        if (ModeRamPix)
+        {
+            //std::cout << "rampix" << std::endl;
+            Matrix_config[icol*4+80] = RamPix1[(299-icol)][LdPixIndex]; //Ram(1)
+            Matrix_config[icol*4+81] = RamPix0[(299-icol)][LdPixIndex]; //InjToCol  &&  RAM(0)
+            Matrix_config[icol*4+82] = 0; //TestToMon
+            Matrix_config[icol*4+83] = 0; //InjToTest
+        }
+        //ModeRamDig
+        else if (ModeRamDig)
+        {
+            //std::cout << "ramdig" << std::endl;
+            if (icol%5 == 0)
+            {
+                Matrix_config[icol*4+81] = RamDig1[int(((299-icol)/5)*2+1)][LdDigIndex]; //InjToCol  &&  RAM(0)
+                Matrix_config[icol*4+80] = RamDig3[int(((299-icol)/5)*2+1)][LdDigIndex]; //Ram(1)
+            }
+            if (icol%5 == 1)
+            {
+                Matrix_config[icol*4+81] = RamDig0[int(((299-icol)/5)*2+1)][LdDigIndex];
+                Matrix_config[icol*4+80] = RamDig2[int(((299-icol)/5)*2+1)][LdDigIndex];
+            }
+            if (icol%5 == 2)
+            {
+                Matrix_config[icol*4+81] = RamDig3[int(((299-icol)/5)*2)][LdDigIndex];
+                Matrix_config[icol*4+80] = 0;
+            }
+            if (icol%5 == 3)
+            {
+                Matrix_config[icol*4+81] = RamDig2[int(((299-icol)/5)*2)][LdDigIndex];
+                Matrix_config[icol*4+80] = RamDig1[int(((299-icol)/5)*2)][LdDigIndex];
+            }
+            if (icol%5 == 4)
+            {
+                Matrix_config[icol*4+81] = RamDig0[int(((299-icol)/5)*2)][LdDigIndex];
+                Matrix_config[icol*4+80] = 0;
+            }
+            Matrix_config[icol*4+82] = 0; //TestToMon
+            Matrix_config[icol*4+83] = 0; //InjToTest
+        }
+        //Mode NormalConfig
+        else
+        {
+            //std::cout << "normal" << std::endl;
+            if ((299-icol)%5 == 0)
+                Matrix_config[icol*4+80] = 0;
+            if ((299-icol)%5 == 1)
+                Matrix_config[icol*4+80] = 0;
+            if ((299-icol)%5 == 2)
+                Matrix_config[icol*4+80] = HBenCol[int(((299-icol)/5)*2)];
+            if ((299-icol)%5 == 3)
+                Matrix_config[icol*4+80] = 0;
+            if ((299-icol)%5 == 4)
+                Matrix_config[icol*4+80] = HBenCol[int(((299-icol)/5)*2+1)];
+            if( ((299-icol) == ui->H35Col->value()) || InjEnCol[icol] || Matrixinjection || RowInjection)
+            {
+                //Matrix_config[icol*4+80] = (((299-icol) == 0)&&(ui->checkbox_AOutToMon->isChecked() == true)); //HB
+                Matrix_config[icol*4+81] = (ui->checkbox_InjToPixel->isChecked());//InjToCol
+                Matrix_config[icol*4+82] = (ui->checkbox_TestToMon->isChecked());//TestToMon
+                Matrix_config[icol*4+83] = (ui->checkbox_InjToTest->isChecked());//InjToTest
+            }
+            else
+            {
+                //Matrix_config[icol*4+80] = (((299-icol) == 0)&&(ui->checkbox_AOutToMon->isChecked() == true));
+                Matrix_config[icol*4+81] = (false);
+                Matrix_config[icol*4+82] = (false);
+                Matrix_config[icol*4+83] = (false);
+            }
+        }
+
+    }
+
+    //rows
+    for (int irow=0; irow<16; irow++)
+    {
+        Matrix_config[irow*4+1280] = (((15-irow) == LdPixIndex)&&(LdPixEn));          //RAM ld
+        Matrix_config[irow*4+1281] = ((15-irow) == ui->RowToAOut->value());                   //Amp Out
+        Matrix_config[irow*4+1282] = (((15-irow) == ui->RowToAOut->value()) && ui->checkbox_PixelToTest->isChecked());    //Amp to test
+        Matrix_config[irow*4+1283] = (((15-irow) == ui->H35Row->value()) && ui->checkbox_InjToPixel->isChecked()) || InjEnRow[irow] || Matrixinjection || ColInjection;     //Inj En
+    }
+
+    //Sensor DACs
+    for (int iDAC = 0; iDAC < 17; iDAC++)
+    {
+        if (ui->IsUnlocked->isChecked())
+        {
+            //1292+iDAC*7
+            Matrix_config[1344+iDAC*7] = Unlock[iDAC];
+            //std::cout << "dac unlocked" << std::endl;
+        }
+        else
+        {
+            Matrix_config[1344+iDAC*7] = Lock[iDAC];
+            //std::cout << "dac locked" << std::endl;
+        }
+        for (int ibit=0; ibit<6; ibit++)
+        {
+            Matrix_config[1344+iDAC*7+1+ibit] = (Sensor_DAC[iDAC] & (0x01<<(ibit))) != 0x00;
+        }
+    }
+    /*for (int i = 0; i < 150; i++)
+    {
+        std::cout << Matrix_config[i] ;
         if (i%10 == 9)
                      std::cout << std::endl;
     }*/
@@ -1276,26 +1343,22 @@ void MainWindow::on_Update_2_clicked()
 
 void MainWindow::on_MatrixSelect_currentIndexChanged(int index)
 {
-    if (index < 0)
+    LoadASICConfig(currentMatrix);
+    currentMatrix = index;
+    SetASICConfig(currentMatrix);
+
+    if (index == 2)
     {
-        GetASICConfig(currentMatrix);
-        currentMatrix = index;
-        SetASICConfig(currentMatrix);
-    }
-    else
-    {
-        currentMatrix = index;
-    }
-    if (index == 1)
-    {
-        ui->GetFullMatrix->setText("Scan Signal of Matrix A");
+        ui->GetFullMatrix->setText("Scan Signal of Matrix B");
         ui->GetFullMatrix->setEnabled(1);
+        //ui->Slider_PAmp->setValue(38);
     }
     else
     {
-        if (index == 2)
+        //ui->Slider_PAmp->setValue(50);
+        if (index == 1)
         {
-            ui->GetFullMatrix->setText("Scan Signal of Matrix B");
+            ui->GetFullMatrix->setText("Scan Signal of Matrix A");
             ui->GetFullMatrix->setEnabled(1);
         }
         else
@@ -1341,7 +1404,6 @@ void MainWindow::SetASICConfig(int Matrix)
         ui->checkbox_InjToPixel->setChecked(ModeNSel[2]);
         ui->checkbox_TestToMon->setChecked(ModeNSel[3]);
         ui->checkbox_InjToTest->setChecked(ModeNSel[4]);
-        ui->checkBox->setChecked(ModeNSel[5]);
     }
     if (Matrix == 1)
     {
@@ -1372,7 +1434,6 @@ void MainWindow::SetASICConfig(int Matrix)
         ui->checkbox_InjToPixel->setChecked(ModeASel[2]);
         ui->checkbox_TestToMon->setChecked(ModeASel[3]);
         ui->checkbox_InjToTest->setChecked(ModeASel[4]);
-        ui->checkBox->setChecked(ModeASel[5]);
     }
     if (Matrix == 2)
     {
@@ -1403,7 +1464,6 @@ void MainWindow::SetASICConfig(int Matrix)
         ui->checkbox_InjToPixel->setChecked(ModeBSel[2]);
         ui->checkbox_TestToMon->setChecked(ModeBSel[3]);
         ui->checkbox_InjToTest->setChecked(ModeBSel[4]);
-        ui->checkBox->setChecked(ModeBSel[5]);
     }
     if (Matrix == 3)
     {
@@ -1434,8 +1494,134 @@ void MainWindow::SetASICConfig(int Matrix)
         ui->checkbox_InjToPixel->setChecked(Mode_Sel[2]);
         ui->checkbox_TestToMon->setChecked(Mode_Sel[3]);
         ui->checkbox_InjToTest->setChecked(Mode_Sel[4]);
-        ui->checkBox->setChecked(Mode_Sel[5]);
     }
+}
+
+void MainWindow::LoadASICConfig(int Matrix)
+{
+    int PixelSel[3];
+    bool ModeSel[5];
+    int SensorDAC[17];
+
+    PixelSel[0] = ui->H35Col->value();
+    PixelSel[1] = ui->H35Row->value();
+    PixelSel[2] = ui->RowToAOut->value();
+    ModeSel[0] = ui->checkbox_AOutToMon->isChecked();
+    ModeSel[1] = ui->checkbox_PixelToTest->isChecked();
+    ModeSel[2] = ui->checkbox_InjToPixel->isChecked();
+    ModeSel[3] = ui->checkbox_TestToMon->isChecked();
+    ModeSel[4] = ui->checkbox_InjToTest->isChecked();
+
+    SensorDAC[16] = ui->spinBox_HBDig->value();
+    SensorDAC[15] = ui->spinBox_PDelDig->value();
+    SensorDAC[14] = ui->spinBox_NDelDig->value();
+    SensorDAC[13] = ui->spinBox_PTrimDig->value();
+    SensorDAC[12] = ui->spinBox_NCompDig->value();
+    SensorDAC[11] = ui->spinBox_BLResDig->value();
+    SensorDAC[10] = ui->spinBox_BLRes->value();
+    SensorDAC[9] = ui->spinBox_NBiasRes->value();
+    SensorDAC[8] = ui->spinBox_NFB->value();
+    SensorDAC[7] = ui->spinBox_PTrim->value();
+    SensorDAC[6] = ui->spinBox_NTWDown->value();
+    SensorDAC[5] = ui->spinBox_NTW->value();
+    SensorDAC[4] = ui->spinBox_NLogic->value();
+    SensorDAC[3] = ui->spinBox_PAmpLoad->value();
+    SensorDAC[2] = ui->spinBox_NSF->value();
+    SensorDAC[1] = ui->spinBox_PAmp->value();
+    SensorDAC[0] = ui->spinBox_PAB->value();
+
+    if (Matrix == 0)
+    {
+        for (int i = 0; i <3; i++)
+            PixelNSel[i]   = PixelSel[i];
+        for (int i = 0; i <5; i++)
+            ModeNSel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorNDAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 1)
+    {
+        for (int i = 0; i <3; i++)
+            PixelASel[i]   = PixelSel[i];
+        for (int i = 0; i <5; i++)
+            ModeASel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorADAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 2)
+    {
+        for (int i = 0; i <3; i++)
+            PixelBSel[i]   = PixelSel[i];
+        for (int i = 0; i <5; i++)
+            ModeBSel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorBDAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 3)
+    {
+        for (int i = 0; i <3; i++)
+            Pixel_Sel[i]   = PixelSel[i];
+        for (int i = 0; i <5; i++)
+            Mode_Sel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            Sensor_DAC[i]  = SensorDAC[i];
+    }
+}
+
+void MainWindow::LoadConigFile(int Matrix)
+{
+
+    bool ModeSel[5];
+    int SensorDAC[17];
+    std::string filename = "Matrix" + QString::number(Matrix).toStdString() + ".config";
+    std::fstream infile ;
+    infile.open(filename.c_str(), std::ios::in);
+
+    if (infile.good())
+    {
+        int k = 0;
+        while (!infile.eof())
+        {
+            if (k<5)
+                infile >> ModeSel[k];
+            else if (k<22)
+                infile >> SensorDAC[k-5];
+            k++;
+            if (k >= 22)
+                break;
+        }
+    }
+
+    if (Matrix == 0)
+    {
+        for (int i = 0; i <5; i++)
+            ModeNSel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorNDAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 1)
+    {
+        for (int i = 0; i <5; i++)
+            ModeASel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorADAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 2)
+    {
+        for (int i = 0; i <5; i++)
+            ModeBSel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            SensorBDAC[i]  = SensorDAC[i];
+    }
+    if (Matrix == 3)
+    {
+        for (int i = 0; i <5; i++)
+            Mode_Sel[i]    = ModeSel[i];
+        for (int i = 0; i <17; i++)
+            Sensor_DAC[i]  = SensorDAC[i];
+    }
+
+    ui->MatrixSelect->setCurrentIndex(Matrix);
 }
 
 void MainWindow::on_scanButton_clicked()
@@ -1593,13 +1779,21 @@ void MainWindow::on_histogramButton_clicked()
 
     ViUInt32 writtenchars;
     ViUInt32 readchars;
+    ViChar buffer[100];
 
     logit("getHistogram");
 
-    //--- get the parameters to transform to voltage ---
+    //query source of histogram data
+    std::string histsrc;
+    histsrc = TekHistSource();
+    if (histsrc == "ERROR")
+        return;
+
+    std::cout << histsrc <<  std::endl;
+
     float yoffset;
-    status = viQueryf(instr, (ViString)"Math1:VERTICAL:POSITION?\n", (ViString)"%f",
-                      &yoffset);
+    std::string verticalposition = histsrc + ":VERTICAL:POSITION?\n";
+    status = viQueryf(instr, (ViString)(verticalposition.c_str()), (ViString)"%f", &yoffset);
     logit("yoffset:" + QString::number(yoffset).toStdString());
     if(status < VI_SUCCESS)
     {
@@ -1607,8 +1801,8 @@ void MainWindow::on_histogramButton_clicked()
         return;
     }
     float ymult;
-    status = viQueryf(instr, (ViString)"Math1:VERTICAL:SCALE?\n", (ViString)"%f",
-                      &ymult);
+    std::string verticalscale = histsrc + ":VERTICAL:SCALE?\n";
+    status = viQueryf(instr, (ViString)(verticalscale.c_str()), (ViString)"%f", &ymult);
     logit("scale:" + QString::number(ymult).toStdString());
     if(status < VI_SUCCESS)
     {
@@ -1620,7 +1814,7 @@ void MainWindow::on_histogramButton_clicked()
     //ymult= 0.05;
     status = viWrite(instr,(ViBuf)"HISTOGRAM:DATA?\n",16, &writtenchars);
 
-    ViChar buffer[100];
+
 
     std::fstream f;
     int index = 0;
@@ -1698,10 +1892,29 @@ void MainWindow::on_GetFullMatrix_clicked()
     ui->checkbox_AOutToMon->setChecked(false);
     ui->checkbox_InjToPixel->setChecked(false);
 
+    bool signal = true; //False means noise histograms
+
     logit("Matrix scan for " + ui->MatrixSelect->currentText().toStdString() + "started");
 
     ViUInt32 readchars;
-    std::string Mon0 = "HIST:SOU MATH1", Mon1 = "HIST:SOU MATH2", Mon2 = "HIST:SOU MATH3";
+    //Noise vs Signal
+    int MonLen;
+    std::string Mon0, Mon1, Mon2;
+    if (signal)
+    {
+        Mon0 = "HIST:SOU MATH1";
+        Mon1 = "HIST:SOU MATH2";
+        Mon2 = "HIST:SOU MATH3";
+        MonLen = 14;
+    }
+    else
+    {
+        Mon0 = "HIST:SOU CH1";
+        Mon1 = "HIST:SOU CH2";
+        Mon2 = "HIST:SOU CH3";
+        MonLen = 12;
+    }
+
 
     ui->RowToAOut->setValue(0);
     ui->H35Row->setValue(0);
@@ -1722,10 +1935,12 @@ void MainWindow::on_GetFullMatrix_clicked()
     //std::cout << icol << " " << irow << " " << icolmax << " " << irowmax << std::endl;
     set_ProgressBar(PBmax, PBnow, 1);
 
-    for (int icol = icolstart; icol < icolmax; icol++)
+    std::string command;
+
+    for (int icol = icolstart; icol < icolmax; icol++)//icol=icol+5)
     {
         //std::cout << irow << " " << icol << std::endl;
-        for (int irow = irowstart; irow <= irowmax; irow++)
+        for (int irow = irowstart; irow <= irowmax; irow++)//irow=irow+2)
         {
             //Config Chip
             ui->RowToAOut->setValue(irow);
@@ -1734,13 +1949,24 @@ void MainWindow::on_GetFullMatrix_clicked()
             ui->H35Col_2->setValue((icol*3)+1);
             ui->H35Col_3->setValue((icol*3)+2);
 
+            std::string nome1, nome2, nome3;
 
+            //Noise vs Signal
+            if (signal)
+            {
+                nome1 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number(icol*3).toStdString() +".dat";
+                nome2 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+1).toStdString() +".dat";
+                nome3 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+2).toStdString() +".dat";
+            }
+            else
+            {
+                nome1 = "hist_noise_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number(icol*3).toStdString() +".dat";
+                nome2 = "hist_noise_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+1).toStdString() +".dat";
+                nome3 = "hist_noise_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+2).toStdString() +".dat";
+            }
 
-            std::string nome1 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number(icol*3).toStdString() +".dat";
             QFileInfo check_file1(QString::fromStdString(nome1));
-            std::string nome2 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+1).toStdString() +".dat";
             QFileInfo check_file2(QString::fromStdString(nome2));
-            std::string nome3 = "hist_Fe55_"+ui->MatrixSelect->currentText().toStdString()+QString::number(irow).toStdString()+"_"+QString::number((icol*3)+2).toStdString() +".dat";
             QFileInfo check_file3(QString::fromStdString(nome3));
 
             //std::cout << nome1 << nome2 << nome3<< std::endl;
@@ -1748,10 +1974,15 @@ void MainWindow::on_GetFullMatrix_clicked()
 
             if (!check_file1.exists() || !check_file2.exists() || !check_file3.exists() )
                 on_Update_clicked();
-            int acq = 300;
+
+            int acq;
             int k = 0;
             int loopcount = 0;
 
+            if (signal)
+                acq = 300;
+            else
+                acq = 30;
 
             PBnow++;
             set_ProgressBar(PBmax, PBnow, 1);
@@ -1760,15 +1991,17 @@ void MainWindow::on_GetFullMatrix_clicked()
             if (!check_file1.exists())
             {
 
-            //Config Osci
-            status = viWrite(instr, (ViBuf)(Mon0.c_str()), 14, &readchars);
-            status = viWrite(instr, (ViBuf)("ACQ:STOPA SEQ"), 13, &readchars);
-            status = viWrite(instr, (ViBuf)("ACQ:STOPA RUNST"), 15, &readchars);
-            status = viWrite(instr, (ViBuf)("ACQ:STATE RUN"), 13, &readchars);
-            status = viWrite(instr, (ViBuf)("HIST:COUN RESET"), 15, &readchars);
-            status = viWrite(instr, (ViBuf)("TRIGGER:A:EDGE:SOURCE CH1"), 25, &readchars);
+                //Config Osci
+                status = viWrite(instr, (ViBuf)(Mon0.c_str()), MonLen, &readchars);
+                status = viWrite(instr, (ViBuf)("ACQ:STOPA SEQ"), 13, &readchars);
+                status = viWrite(instr, (ViBuf)("ACQ:STOPA RUNST"), 15, &readchars);
+                status = viWrite(instr, (ViBuf)("ACQ:STATE RUN"), 13, &readchars);
+                status = viWrite(instr, (ViBuf)("HIST:COUN RESET"), 15, &readchars);
+                status = viWrite(instr, (ViBuf)("TRIGGER:A:EDGE:SOURCE CH1"), 25, &readchars);
+                command = "TRIGGER:A:LEVEL " + ui->TrigLVL->text().toStdString();
+                status = viWrite(instr, (ViBuf) command.c_str(), command.length(), &readchars);
 
-            Sleep(1000);
+                Sleep(1000);
 
                 //wait maybe check acq
                 do
@@ -1805,12 +2038,14 @@ void MainWindow::on_GetFullMatrix_clicked()
             if (!check_file2.exists())
             {
                 //Config Osci
-                status = viWrite(instr, (ViBuf)(Mon1.c_str()), 14, &readchars);
+                status = viWrite(instr, (ViBuf)(Mon1.c_str()), MonLen, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STOPA SEQ"), 13, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STOPA RUNST"), 15, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STATE RUN"), 13, &readchars);
                 status = viWrite(instr, (ViBuf)("HIST:COUN RESET"), 15, &readchars);
                 status = viWrite(instr, (ViBuf)("TRIGGER:A:EDGE:SOURCE CH2"), 25, &readchars);
+                command = "TRIGGER:A:LEVEL " + ui->TrigLVL->text().toStdString();
+                status = viWrite(instr, (ViBuf) command.c_str(), command.length(), &readchars);
                 Sleep(1000);
 
                 //wait maybe check acq
@@ -1847,12 +2082,14 @@ void MainWindow::on_GetFullMatrix_clicked()
             if (!check_file3.exists())
             {
                 //Config Osci
-                status = viWrite(instr, (ViBuf)(Mon2.c_str()), 14, &readchars);
+                status = viWrite(instr, (ViBuf)(Mon2.c_str()), MonLen, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STOPA SEQ"), 13, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STOPA RUNST"), 15, &readchars);
                 status = viWrite(instr, (ViBuf)("ACQ:STATE RUN"), 13, &readchars);
                 status = viWrite(instr, (ViBuf)("HIST:COUN RESET"), 15, &readchars);
                 status = viWrite(instr, (ViBuf)("TRIGGER:A:EDGE:SOURCE CH3"), 25, &readchars);
+                command = "TRIGGER:A:LEVEL " + ui->TrigLVL->text().toStdString();
+                status = viWrite(instr, (ViBuf) command.c_str(), command.length(), &readchars);
                 Sleep(1000);
 
                 //wait maybe check acq
@@ -5762,3 +5999,104 @@ void MainWindow::on_get_delayCurve_2_clicked()
 
 
 }
+
+void MainWindow::on_VNFBScan_clicked()
+{
+    int PBnow = 0;
+    int PBmax = 64;
+    set_ProgressBar(PBmax, PBnow, 1);
+    ViUInt32 readchars;
+    for (int i = 0; i<64; i++)
+    {
+        ui->spinBox_NFB->setValue(i);
+        on_Update_clicked();
+        Sleep(100);
+        std::string histsrc = TekHistSource();
+        int col;
+        if (histsrc.substr(0,1) == "M")
+            col = std::stoi(histsrc.substr(4,1));
+        else if (histsrc.substr(0,1) == "C")
+            col = std::stoi(histsrc.substr(2,1));
+
+        if (col == 1)
+            col = ui->H35Col->text().toInt();
+        if (col == 2)
+            col = ui->H35Col_2->text().toInt();
+        if (col == 3)
+            col = ui->H35Col_3->text().toInt();
+
+        std::string nome1 = "hist_Fe55_VNFB"+QString::number(i).toStdString()+ "_" +ui->MatrixSelect->currentText().toStdString()+ui->H35Row->text().toStdString()+"_"+QString::number(col).toStdString() +".dat";
+        int acq = 3000;
+        int k = 0;
+        int loopcount = 0;
+        //Config Osci
+        //status = viWrite(instr, (ViBuf)(Mon0.c_str()), MonLen, &readchars);
+        status = viWrite(instr, (ViBuf)("ACQ:STOPA SEQ"), 13, &readchars);
+        status = viWrite(instr, (ViBuf)("ACQ:STOPA RUNST"), 15, &readchars);
+        status = viWrite(instr, (ViBuf)("ACQ:STATE RUN"), 13, &readchars);
+        status = viWrite(instr, (ViBuf)("HIST:COUN RESET"), 15, &readchars);
+        //status = viWrite(instr, (ViBuf)("TRIGGER:A:EDGE:SOURCE CH1"), 25, &readchars);
+
+        Sleep(1000);
+        do
+        {
+            status = viQueryf(instr,(ViString)"ACQ:NUMACq?", (ViString)"%i", &k);
+            //std::cout << k << std::endl;
+            QApplication::processEvents();
+            Sleep(20);
+            loopcount++;
+        }while ((k < acq) && (loopcount < 50000));
+        if (k >= acq-1)
+            logit("5000 acq");
+        if (loopcount >= 49900)
+        {
+            logit("timeout");
+            on_Update_clicked();
+            on_Update_2_clicked();
+        }
+
+        //read Histogram
+        on_histogramButton_clicked();
+        Sleep(100);
+
+        rename("histogram_1.dat", nome1.c_str());
+        set_ProgressBar(PBmax, ++PBnow, 1);
+    }
+    set_ProgressBar(PBmax, ++PBnow, 0);
+}
+
+//Osci Stuff
+
+std::string MainWindow::TekHistSource()
+{
+    if(instr == VI_NULL)
+        return "ERROR";
+
+    ViUInt32 writtenchars;
+    ViUInt32 readchars;
+    ViChar buffer[100];
+
+    status = viWrite(instr,(ViBuf)"HISTOGRAM:SOU?\n",15, &writtenchars);
+    status = viRead(instr, (ViBuf)buffer, 100, &readchars);
+    int i=0;
+    std::stringstream temp;
+    std::string histsrc;
+    while (buffer[i] != '\n')
+    {
+        temp << buffer[i];
+        i++;
+    }
+    histsrc = temp.str();
+
+    //std::cout << histsrc <<  std::endl;
+
+    if(status < VI_SUCCESS)
+    {
+        logit("Error getting histogram source");
+        return "ERROR";
+    }
+    else
+        return histsrc;
+
+}
+

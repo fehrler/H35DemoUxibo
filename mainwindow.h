@@ -122,6 +122,10 @@ private slots:
 
     void GetPCBConfig();
 
+    void LoadASICConfig(int Matrix);
+
+    void LoadConigFile(int Matrix);
+
     void on_Update_2_clicked();
 
     void on_MatrixSelect_currentIndexChanged(int index);
@@ -149,6 +153,8 @@ private slots:
     float getmin(std::string myfile);
 
     void SendConfig(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, int LdDigIndex, bool LdPixEn, bool LdDigEn);
+
+    void SendConfigCMOS(bool ModeRamPix, bool ModeRamDig, int LdPixIndex, int LdDigIndex, bool LdPixEn, bool LdDigEn);
 
     void on_Hitbus_clicked();
 
@@ -260,7 +266,6 @@ private slots:
 
     void SaveReadoutData(QVector<std::array<int, 6> > outdata);
 
-
     void on_get_delayCurve_clicked();
 
     void on_Sr90Injection_clicked();
@@ -268,6 +273,11 @@ private slots:
     void on_InjDelay_clicked();
 
     void on_get_delayCurve_2_clicked();
+
+    void on_VNFBScan_clicked();
+
+    //Osci Stuff
+    std::string TekHistSource();
 
 signals:
     void MainToHB(QVector<bool> HBConfig);
